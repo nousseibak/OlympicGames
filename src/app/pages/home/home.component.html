@@ -1,11 +1,34 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
-<canvas baseChart
+
+<div class="flex justify-center space-x-10 mb-8">
+<app-titre1
+  [customText]="'Medals Per Country'"
+></app-titre1>
+</div>
+
+<div class="flex justify-center space-x-10 mb-8">
+<app-titre2
+  [darkGrayText]="'Number of JOs'"
+  [blackText]="totalOlympics.toString()"
+></app-titre2>
+<app-titre2
+  [darkGrayText]="'Number of countries'"
+  [blackText]="totalCountries.toString()"
+></app-titre2>
+</div>
+
+<div class="flex justify-center">
+  <canvas baseChart
   [type]="'pie'"
   [datasets]="pieChartDatasets"
   [labels]="pieChartLabels"
   [options]="pieChartOptions"
   [plugins]="pieChartPlugins"
   [legend]="pieChartLegend">
+
+  (chartClick)="onChartClick($event)">
+
 </canvas>
+
+</div>
+
+

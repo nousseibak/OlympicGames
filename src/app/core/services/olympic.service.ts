@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { catchError, map,tap } from 'rxjs/operators';
+import { Olympic } from '../models/Olympic';
+import { Participation } from '../models/Participation';
+
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +17,11 @@ export class OlympicService {
 
   loadInitialData() {
     return this.http.get<any>(this.olympicUrl).pipe(
-      tap((value: any) => this.olympics$.next(value)),
+      map((data) => this.transformData(data)),
+      tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
-        // TODO: improve error handling
         console.error(error);
-        // can be useful to end loading state and let the user know something went wrong
-        this.olympics$.next(null);
+        this.olympics$.next([]);
         return caught;
       })
     );
@@ -27,5 +29,22 @@ export class OlympicService {
 
   getOlympics() {
     return this.olympics$.asObservable();
+  }
+
+  private transformData(data: any): Olympic[] {
+    return data.map((item: any) => {
+      const olympic: Olympic = {
+        id: item.id,
+        country: item.country,
+        participations: item.participations.map((participation: any) => ({
+          id: participation.id,
+          year: participation.year,
+          city: participation.city,
+          medalsCount: participation.medalsCount,
+          athleteCount: participation.athleteCount,
+        })),
+      };
+      return olympic;
+    });
   }
 }
