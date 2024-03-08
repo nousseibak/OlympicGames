@@ -26,7 +26,7 @@ Dans le dossier src/app :
   -  detail : page affichant les details d'un pays
   -  not-found : page qui s'affiche si l'adresse entrée est incorrecte
 
--assets
+- assets
   - img : contient les images utilisées dans le projet
   - mock: contient le fichier json où sont stockées les informations concernant les JOs
 
