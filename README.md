@@ -17,9 +17,9 @@ et à un diagramme linéaire représentant le nombre de médailles remportées p
 
 Dans le dossier src/app :
 - core
-  -- component : pour les composants réutilisables (header, footer, titre1 et titre2)
-  --models : 2 entités (Olympic et Participation)
-  --services : un service olympic pour charger les données à partir d'un fichier json et les transformer en objets
+  - component : pour les composants réutilisables (header, footer, titre1 et titre2)
+  - models : 2 entités (Olympic et Participation)
+  -services : un service olympic pour charger les données à partir d'un fichier json et les transformer en objets
   
 - pages :
 -- home : page d'accueil où s'affiche un diagramme en camembert
