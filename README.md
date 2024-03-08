@@ -9,15 +9,16 @@ et à un diagramme linéaire représentant le nombre de médailles remportées p
 
 ## Technologies utilisées
 
--Angular 14.1.3
--Tailwind 3.4.1 et scss pour le style
--ng2-charts 4.1.1 pour le diagrammes
+- Angular 14.1.3
+- Tailwind 3.4.1 et scss pour le style
+- ng2-charts 4.1.1 pour le diagrammes
 
 
 ## Outils utilisés
 
--IDE: Vscode
--Navigateurs: Firefox, Edge
+- IDE: Vscode
+
+- Navigateurs: Firefox, Edge
 
 
 ## Démarrage du projet
