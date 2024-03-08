@@ -33,8 +33,8 @@ Dans le dossier src/app :
 
 ## Outils utilisés
 
-- IDE: Vscode
-- Navigateurs: Firefox, Edge
+- IDE : Vscode
+- Navigateurs : Firefox, Edge
 
 
 ## Démarrage du projet
