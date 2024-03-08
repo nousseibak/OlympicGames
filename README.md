@@ -19,16 +19,16 @@ Dans le dossier src/app :
 - core
   - component : pour les composants réutilisables (header, footer, titre1 et titre2)
   - models : 2 entités (Olympic et Participation)
-  -services : un service olympic pour charger les données à partir d'un fichier json et les transformer en objets
+  - services : un service olympic pour charger les données à partir d'un fichier json et les transformer en objets
   
 - pages :
--- home : page d'accueil où s'affiche un diagramme en camembert
--- detail : page affichant les details d'un pays
--- not-found : page qui s'affiche si l'adresse entrée est incorrecte
+  -  home : page d'accueil où s'affiche un diagramme en camembert
+  -  detail : page affichant les details d'un pays
+  -  not-found : page qui s'affiche si l'adresse entrée est incorrecte
 
 -assets
---img : contient les images utilisées dans le projet
---mock: contient le fichier json où sont stockées les informations concernant les JOs
+  - img : contient les images utilisées dans le projet
+  - mock: contient le fichier json où sont stockées les informations concernant les JOs
 
 
 ## Outils utilisés
