@@ -17,7 +17,6 @@ et à un diagramme linéaire représentant le nombre de médailles remportées p
 ## Outils utilisés
 
 - IDE: Vscode
-
 - Navigateurs: Firefox, Edge
 
 
