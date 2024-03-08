@@ -31,7 +31,7 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
-  private transformData(data: any): Olympic[] {
+  private transformData(data: any[]): Olympic[] {
     return data.map((item: any) => {
       const olympic: Olympic = {
         id: item.id,

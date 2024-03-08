@@ -1,25 +1,30 @@
-<div class="flex justify-center space-x-10 mb-4">
+<div *ngIf="countryDetails" >
+
+<div class="flex justify-center space-x-10 mb-8">
     <app-titre1
-      [customText]="'Name of the country'"
+      [customText]="countryDetails.country"
     ></app-titre1>
     </div>
     
     <div class="flex justify-center space-x-10 mb-8">
     <app-titre2
       [darkGrayText]="'Number of entries'"
-      [blackText]="'Personnalisé en noir'"
+      [blackText]="countryDetails.totalParticipations"
     ></app-titre2>
     <app-titre2
       [darkGrayText]="'Total number medals'"
-      [blackText]="'Personnalisé en noir'"
+      [blackText]="countryDetails.totalMedals"
     ></app-titre2>
     <app-titre2
     [darkGrayText]="'Total number of athletes'"
-    [blackText]="'Personnalisé en noir'"
+    [blackText]="countryDetails.totalAthletes"
   ></app-titre2>
     </div>
 
-    <div class="flex justify-center">
+
+
+
+    <div class="flex justify-center mb-8">
 
     <div style="display: block;">
         <canvas baseChart width="400" height="400"
@@ -29,4 +34,7 @@
           [legend]="lineChartLegend">
         </canvas>
     </div>
-     
+    </div>
+    </div>
+    
+<div *ngIf="errorMessage" class="flex justify-center items-center ">{{ errorMessage }}</div>

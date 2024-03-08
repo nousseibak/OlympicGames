@@ -6,6 +6,8 @@ import { Participation } from 'src/app/core/models/Participation';
 import { Olympic } from 'src/app/core/models/Olympic';
 
 
+
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -15,27 +17,51 @@ export class DetailComponent  implements OnInit {
   title = 'ng2-charts-demo';
 
   public lineChartData: ChartConfiguration<'line'>['data'] = {
+    
     labels: [],
     datasets: [
       {
         data: [],
-        label: 'medals per country',
-        fill: true,
-        tension: 0.5,
+        label: 'Médailles par année',
+        fill: false,
+        tension: 0,
         borderColor: 'black',
         backgroundColor: 'rgba(255,0,0,0.3)'
-      }
+      },
+
     ]
   };
   public lineChartOptions: ChartOptions<'line'> = {
-    responsive: false
+    responsive: false,
+
+    plugins: {
+      legend: { display: false },
+
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Dates', // Remplacez cela par le nom approprié
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Nombre de Médailles', // Remplacez cela par le nom approprié
+        },
+      },
+    },
   };
+
   public lineChartLegend = true;
-  public countryName: string = '';
   public countryId: number | undefined;
+  countryDetails: any;
+  errorMessage: string = '';
 
 
-  constructor(private olympicService: OlympicService, private route: ActivatedRoute,) {}
+
+  constructor(private olympicService: OlympicService, private route: ActivatedRoute  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -43,21 +69,38 @@ export class DetailComponent  implements OnInit {
       console.log(this.countryId);
       this.olympicService.getOlympics().subscribe((data: Olympic[] | undefined) => {
         if (data) {
-          console.log(data);
+          console.log("country id"+data);
           const countryData = data.find(country => country.id === this.countryId);
           console.log(countryData);
           if (countryData) {
             countryData.participations.forEach((participation: Participation) => {
-              console.log(participation.year.toString());
+              console.log("participation year" +participation.year.toString());
               this.lineChartData.labels!.push(participation.year.toString());
-              console.log(this.lineChartData);
               this.lineChartData.datasets[0].data.push(participation.medalsCount);
-              console.log(participation.medalsCount);
+              console.log("participation.medalsCount"+participation.medalsCount);
 
-            });
+              this.countryDetails = {
+                country: countryData.country,
+                totalParticipations: countryData.participations.length,
+                totalMedals: countryData.participations.reduce((acc: any, participation: { medalsCount: any; }) => acc + participation.medalsCount, 0),
+                totalAthletes: countryData.participations.reduce((acc: any, participation: { athleteCount: any; }) => acc + participation.athleteCount, 0),
+              };
+            }); 
+
+          }
+          else {
+            this.errorMessage = 'Invalid country ID';
+  
           }
         }
+
+        console.log(this.lineChartData.labels);
+        console.log(this.lineChartData);
+        console.log(this.lineChartData.datasets[0].data);
+
       });
     });
   }
+
+
 }

@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit{
     responsive: false,
     plugins: {
       legend: {
-        display: true,
+        display: false,
         position: 'top',
       },
       datalabels: {
@@ -37,17 +37,21 @@ export class HomeComponent implements OnInit{
             return ctx.chart.data.labels[ctx.dataIndex];
           }
         },
+        color: 'white',
+        font: { size: 14, family: 'FontAwesome', },
+        
       },
     },
+    
   };
   public pieChartLabels :string[] = [];
-  public pieChartDatasets :{ data: number[]; label: any}[] = [];
+  public pieChartDatasets :{ data: number[]; label: any; backgroundColor: string[] }[] = [];
   public pieChartLegend = false;
   public pieChartPlugins = [DatalabelsPlugin];
 
   public totalCountries = 0;
   public totalOlympics = 0;
-  public olympics: any; 
+  public olympics: Olympic[] = []; 
   public medalIcon: IconDefinition | null;
 
 
@@ -62,16 +66,19 @@ export class HomeComponent implements OnInit{
     this.olympicService.loadInitialData().subscribe((olympics) => {
       this.processDataForPieChart(olympics);
       this.olympics=olympics;
-    });
-  }
+    }
+  );
+}
 
   private processDataForPieChart(olympics: any): void {
+    const customColors: string[] = ['#956065', '#B8CBE7', '#89A1DB', '#793D52', '#9780A1'];
 
     this.pieChartLabels = olympics.map((olympic: any) => olympic.country);
     this.pieChartDatasets = [
       {
         data: olympics.map((olympic: any) => olympic.participations.reduce((acc: number, part: any) => acc + part.medalsCount, 0)),
         label: this.medalIcon,
+        backgroundColor: customColors,
         
       },
     ];
@@ -83,15 +90,16 @@ export class HomeComponent implements OnInit{
   }
 
 
-  onChartClick(event: { event: MouseEvent; active: { _index: number; _datasetIndex: number }[] }): void {
-    const clickedCountryIndex = event.active[0]?._index;
 
-    if (clickedCountryIndex !== undefined) {
-      const clickedCountryId = this.olympics[clickedCountryIndex]?.id;
-      
-      if (clickedCountryId !== undefined) {
-        this.router.navigate(['/details', clickedCountryId]);
-      }
-    }
+
+public chartClicked(e: any): void {
+  console.log(e.active[0]._model);
+}
+
+public chartHovered(e: any): void {
+  if (e.event.type == "click") {
+    const clickedIndex = e.active[0]?.index;
+    console.log("Clicked index=" + clickedIndex);
   }
+}
 }
