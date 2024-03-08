@@ -27,7 +27,7 @@ Dans le dossier src/app :
   -  not-found : page qui s'affiche si l'adresse entrée est incorrecte
 
 - assets :
-    - img : contient les images utilisées dans le projet
+  - img : contient les images utilisées dans le projet
   - mock : contient le fichier json où sont stockées les informations concernant les JOs
 
 
