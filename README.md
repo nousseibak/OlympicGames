@@ -42,7 +42,7 @@ Dans le dossier src/app :
 - Cloner le projet
 - Ouvrir le projet avec un éditeur de code
 - Installer les node_modules avec la commande (`npm install`)
-- Lancer le projet avec ('ng serve')
+- Lancer le projet avec (`ng serve`)
 - Aller à l'adresse `http://localhost:4200/
 
 
