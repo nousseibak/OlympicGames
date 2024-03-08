@@ -15,6 +15,9 @@ export class OlympicService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Charger les données à partir du fichier olympic.json
+   */
   loadInitialData() {
     return this.http.get<any>(this.olympicUrl).pipe(
       map((data) => this.transformData(data)),
@@ -31,9 +34,14 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
+  /**
+   * Transformer les données chargées à partir du fichier olympic.json en objets Olympic
+   * @param data 
+   * @returns 
+   */
   private transformData(data: any[]): Olympic[] {
     return data.map((item: any) => {
-      const olympic: Olympic = {
+      let olympic: Olympic = {
         id: item.id,
         country: item.country,
         participations: item.participations.map((participation: any) => ({

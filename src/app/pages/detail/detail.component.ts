@@ -6,8 +6,6 @@ import { Participation } from 'src/app/core/models/Participation';
 import { Olympic } from 'src/app/core/models/Olympic';
 
 
-
-
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -17,7 +15,6 @@ export class DetailComponent  implements OnInit {
   title = 'ng2-charts-demo';
 
   public lineChartData: ChartConfiguration<'line'>['data'] = {
-    
     labels: [],
     datasets: [
       {
@@ -28,12 +25,11 @@ export class DetailComponent  implements OnInit {
         borderColor: 'black',
         backgroundColor: 'rgba(255,0,0,0.3)'
       },
-
     ]
   };
-  public lineChartOptions: ChartOptions<'line'> = {
-    responsive: false,
 
+  public lineChartOptions: ChartOptions<'line'> = {
+    responsive: true,
     plugins: {
       legend: { display: false },
       title: {
@@ -45,7 +41,7 @@ export class DetailComponent  implements OnInit {
       x: {
         title: {
           display: true,
-          text: 'Dates', // Remplacez cela par le nom approprié
+          text: 'Year', // Remplacez cela par le nom approprié
         },
       },
       y: {
@@ -63,47 +59,52 @@ export class DetailComponent  implements OnInit {
   errorMessage: string = '';
 
 
-
-  constructor(private olympicService: OlympicService, private route: ActivatedRoute  ) {}
+  constructor(private olympicService: OlympicService, private route: ActivatedRoute ) {}
 
   ngOnInit() {
+    this.processDataCountry();
+  }
+
+
+    /**
+   * 
+   * countryData Charger les informations concernant le pays à partir de l'id récupéré
+   * récupération pour le pays des participations (années) et médailles gagnées par participation
+   * Si l'id est incorrect, un message d'erreur s'affiche
+   */
+  private processDataCountry(){
     this.route.paramMap.subscribe(params => {
       this.countryId = parseInt(params.get('id') || '', 10);
-      console.log(this.countryId);
       this.olympicService.getOlympics().subscribe((data: Olympic[] | undefined) => {
         if (data) {
-          console.log("country id"+data);
           const countryData = data.find(country => country.id === this.countryId);
-          console.log(countryData);
           if (countryData) {
             countryData.participations.forEach((participation: Participation) => {
-              console.log("participation year" +participation.year.toString());
               this.lineChartData.labels!.push(participation.year.toString());
               this.lineChartData.datasets[0].data.push(participation.medalsCount);
-              console.log("participation.medalsCount"+participation.medalsCount);
-
-              this.countryDetails = {
-                country: countryData.country,
-                totalParticipations: countryData.participations.length,
-                totalMedals: countryData.participations.reduce((acc: any, participation: { medalsCount: any; }) => acc + participation.medalsCount, 0),
-                totalAthletes: countryData.participations.reduce((acc: any, participation: { athleteCount: any; }) => acc + participation.athleteCount, 0),
-              };
             }); 
-
+            
+            this.processCountryDetails(countryData );
           }
           else {
             this.errorMessage = 'Invalid country ID';
-  
           }
         }
-
-        console.log(this.lineChartData.labels);
-        console.log(this.lineChartData);
-        console.log(this.lineChartData.datasets[0].data);
-
       });
     });
   }
 
-
+    /**
+   * Charger les informations concernant le pays:
+   * nom du pays, nombre total de participations, nombre total de medailles, nombre total d'athletes
+   * @param countryData 
+   */
+    private processCountryDetails(countryData : Olympic): void {
+      this.countryDetails = {
+        country: countryData.country,
+        totalParticipations: countryData.participations.length,
+        totalMedals: countryData.participations.reduce((acc: any, participation: { medalsCount: any; }) => acc + participation.medalsCount, 0),
+        totalAthletes: countryData.participations.reduce((acc: any, participation: { athleteCount: any; }) => acc + participation.athleteCount, 0),
+      };
+    }
 }

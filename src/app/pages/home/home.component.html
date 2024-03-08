@@ -1,38 +1,38 @@
 <ng-container *ngIf="olympics.length >= 1; else noDataTemplate">
 
-<div class="flex justify-center space-x-10 mb-8">
-<app-titre1
-  [customText]="'Medals Per Country'"
-></app-titre1>
-</div>
+  <div class="flex justify-center space-x-10 mb-8 ">
+    <app-titre1
+      [customText]="'Medals Per Country'">
+    </app-titre1>
+  </div>
 
-<div class="flex justify-center space-x-10 mb-8">
-<app-titre2
-  [darkGrayText]="'Number of JOs'"
-  [blackText]="totalOlympics.toString()"
-></app-titre2>
-<app-titre2
-  [darkGrayText]="'Number of countries'"
-  [blackText]="totalCountries.toString()"
-></app-titre2>
-</div>
+  <div class="flex flex-col items-center justify-center space-y-4 mb-8 sm:flex-row sm:space-x-4 sm:space-y-0 md:space-x-8 md:space-y-0 lg:space-x-12 lg:space-y-0">
+    <app-titre2
+      [darkGrayText]="'Number of JOs'"
+      [blackText]="totalOlympics.toString()">
+    </app-titre2>
+    <app-titre2
+      [darkGrayText]="'Number of countries'"
+      [blackText]="totalCountries.toString()">
+    </app-titre2>
+  </div>
 
-<div class="flex justify-center">
-  <canvas baseChart
-  [type]="'pie'"
-  [datasets]="pieChartDatasets"
-  [labels]="pieChartLabels"
-  [options]="pieChartOptions"
-  [plugins]="pieChartPlugins"
-  [legend]="pieChartLegend">
+  <div class="flex justify-center max-w-md mx-auto">
+    <canvas baseChart
+      [type]="'pie'"
+      [datasets]="pieChartDatasets"
+      [labels]="pieChartLabels"
+      [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"
+      [legend]="pieChartLegend">
+    </canvas>
+  </div>
 
-</canvas>
-
-</div>
 </ng-container>
-<ng-template #noDataTemplate>
-<div>Aucune donnée trouvée.</div>
 
+<ng-template #noDataTemplate>
+  <div>Aucune donnée trouvée.</div>
 </ng-template>
 
+<div class="mb-32"></div>
 

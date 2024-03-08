@@ -1,40 +1,39 @@
 <div *ngIf="countryDetails" >
 
-<div class="flex justify-center space-x-10 mb-8">
+  <div class="flex justify-center space-x-10 mb-8">
     <app-titre1
-      [customText]="countryDetails.country"
-    ></app-titre1>
-    </div>
-    
-    <div class="flex justify-center space-x-10 mb-8">
+      [customText]="countryDetails.country">
+    </app-titre1>
+  </div>
+      
+  <div class="flex flex-col items-center justify-center space-y-4 mb-8 sm:flex-row sm:space-x-4 sm:space-y-0 md:space-x-8 md:space-y-0 lg:space-x-12 lg:space-y-0">
     <app-titre2
       [darkGrayText]="'Number of entries'"
-      [blackText]="countryDetails.totalParticipations"
-    ></app-titre2>
+      [blackText]="countryDetails.totalParticipations">
+    </app-titre2>
     <app-titre2
       [darkGrayText]="'Total number medals'"
-      [blackText]="countryDetails.totalMedals"
-    ></app-titre2>
+      [blackText]="countryDetails.totalMedals">
+    </app-titre2>
     <app-titre2
-    [darkGrayText]="'Total number of athletes'"
-    [blackText]="countryDetails.totalAthletes"
-  ></app-titre2>
-    </div>
+      [darkGrayText]="'Total number of athletes'"
+      [blackText]="countryDetails.totalAthletes">
+    </app-titre2>
+  </div>
 
+  <div class="flex justify-center mb-32 max-w-md mx-auto">
+    <canvas baseChart width="400" height="400"
+      [type]="'line'"
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [legend]="lineChartLegend">
+    </canvas>
+  </div>
 
+</div>
 
+<div *ngIf="errorMessage" class="flex justify-center items-center flex-col">
+  <h1>{{ errorMessage }}</h1>
+  <a routerLink="">Go back to Home</a>
+</div>
 
-    <div class="flex justify-center mb-8">
-
-    <div style="display: block;">
-        <canvas baseChart width="400" height="400"
-          [type]="'line'"
-          [data]="lineChartData"
-          [options]="lineChartOptions"
-          [legend]="lineChartLegend">
-        </canvas>
-    </div>
-    </div>
-    </div>
-    
-<div *ngIf="errorMessage" class="flex justify-center items-center ">{{ errorMessage }}</div>
