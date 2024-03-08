@@ -16,7 +16,7 @@ et à un diagramme linéaire représentant le nombre de médailles remportées p
 ## Architecture
 
 Dans le dossier src/app :
-- core
+- core :
   - component : pour les composants réutilisables (header, footer, titre1 et titre2)
   - models : 2 entités (Olympic et Participation)
   - services : un service olympic pour charger les données à partir d'un fichier json et les transformer en objets
@@ -26,9 +26,9 @@ Dans le dossier src/app :
   -  detail : page affichant les details d'un pays
   -  not-found : page qui s'affiche si l'adresse entrée est incorrecte
 
-- assets
-  - img : contient les images utilisées dans le projet
-  - mock: contient le fichier json où sont stockées les informations concernant les JOs
+- assets :
+    - img : contient les images utilisées dans le projet
+  - mock : contient le fichier json où sont stockées les informations concernant les JOs
 
 
 ## Outils utilisés
