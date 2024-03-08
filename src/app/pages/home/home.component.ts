@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { Olympic } from 'src/app/core/models/Olympic';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
-import { faMedal } from '@fortawesome/free-solid-svg-icons';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { NgZone } from '@angular/core';
 
 
