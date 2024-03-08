@@ -22,7 +22,7 @@ export class DetailComponent  implements OnInit {
     datasets: [
       {
         data: [],
-        label: 'Médailles par année',
+        label: 'Medals by year',
         fill: false,
         tension: 0,
         borderColor: 'black',
@@ -36,7 +36,10 @@ export class DetailComponent  implements OnInit {
 
     plugins: {
       legend: { display: false },
-
+      title: {
+        display: true,
+        text: 'Number medals by year',
+      }
     },
     scales: {
       x: {
@@ -48,13 +51,13 @@ export class DetailComponent  implements OnInit {
       y: {
         title: {
           display: true,
-          text: 'Nombre de Médailles', // Remplacez cela par le nom approprié
+          text: 'number medals', // Remplacez cela par le nom approprié
         },
       },
     },
   };
 
-  public lineChartLegend = true;
+  public lineChartLegend = false;
   public countryId: number | undefined;
   countryDetails: any;
   errorMessage: string = '';

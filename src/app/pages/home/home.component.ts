@@ -8,6 +8,8 @@ import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { IconDefinition, faMedal } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { NgZone } from '@angular/core';
+
 
 
 
@@ -30,6 +32,7 @@ export class HomeComponent implements OnInit{
       legend: {
         display: false,
         position: 'top',
+        
       },
       datalabels: {
         formatter: (value: any, ctx: any) => {
@@ -41,7 +44,12 @@ export class HomeComponent implements OnInit{
         font: { size: 14, family: 'FontAwesome', },
         
       },
+
     },
+    onClick : (evt, array) => {
+      console.log('clicked on data index ',array[0].index);
+      this.onClick(array[0].index);
+  }
     
   };
   public pieChartLabels :string[] = [];
@@ -55,7 +63,8 @@ export class HomeComponent implements OnInit{
   public medalIcon: IconDefinition | null;
 
 
-  constructor(private olympicService: OlympicService, private router: Router, library: FaIconLibrary) {    
+  
+  constructor(private olympicService: OlympicService, private router: Router, library: FaIconLibrary, private zone: NgZone, ) {    
     library.addIcons(faMedal);
     this.medalIcon= library.getIconDefinition('fas', 'medal');
  
@@ -92,14 +101,10 @@ export class HomeComponent implements OnInit{
 
 
 
-public chartClicked(e: any): void {
-  console.log(e.active[0]._model);
-}
+public onClick(number: number ){
+  let countryClicked = this.olympics[number].id;
 
-public chartHovered(e: any): void {
-  if (e.event.type == "click") {
-    const clickedIndex = e.active[0]?.index;
-    console.log("Clicked index=" + clickedIndex);
-  }
-}
+  this.zone.run(() => {
+    this.router.navigate(['/detail', countryClicked]);
+  });}
 }
