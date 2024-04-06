@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./titre1.component.scss']
 })
 export class Titre1Component  {
+
   @Input() customText: string = 'Ligne de texte personnalisée';
-
-
+  
 }

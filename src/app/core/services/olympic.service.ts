@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { catchError, map,tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 import { Participation } from '../models/Participation';
@@ -11,15 +11,15 @@ import { Participation } from '../models/Participation';
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<any>(undefined);
+  private olympics$ = new BehaviorSubject<Olympic[]>([]);
 
   constructor(private http: HttpClient) {}
 
   /**
    * Charger les données à partir du fichier olympic.json
    */
-  loadInitialData() {
-    return this.http.get<any>(this.olympicUrl).pipe(
+  loadInitialData() : Observable<Olympic[]> {
+    return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       map((data) => this.transformData(data)),
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
@@ -30,29 +30,28 @@ export class OlympicService {
     );
   }
 
-  getOlympics() {
+  getOlympics() : Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
 
   /**
    * Transformer les données chargées à partir du fichier olympic.json en objets Olympic
-   * @param data 
-   * @returns 
+   * @param data Données brutes chargées depuis olympic.json
+   * @returns Tableau d'objets Olympic
    */
-  private transformData(data: any[]): Olympic[] {
-    return data.map((item: any) => {
-      let olympic: Olympic = {
+  private transformData(data: Olympic[]): Olympic[] {
+    return data.map((item: Olympic) => {
+      return  {
         id: item.id,
         country: item.country,
-        participations: item.participations.map((participation: any) => ({
+        participations: item.participations.map((participation: Participation) => ({
           id: participation.id,
           year: participation.year,
           city: participation.city,
           medalsCount: participation.medalsCount,
           athleteCount: participation.athleteCount,
-        })),
-      };
-      return olympic;
+        })),  
+      }as Olympic;
     });
   }
 }
