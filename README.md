@@ -3,7 +3,7 @@
 Ce projet est une application front permettant de visualiser les données des jeux olympiques sous forme de graphiques.
 
 Une page d'accueil avec un diagramme en camembert représente les pays et leur nombre de médailles remportées au total.
-Quand on survole unsecteur, le nombre de médailles total du pays s'affiche. Quand on clique sur un secteur du diagramme, on accède aux détails des participations aux JOs du pays concerné (nombre de participations aux JOs, de médailles total, de participants total) 
+Quand on survole un secteur du diagramme, le nombre de médailles total du pays s'affiche. Quand on clique sur un secteur du diagramme, on accède aux détails des participations aux JOs du pays concerné (nombre de participations aux JOs, de médailles total, de participants total) 
 et à un diagramme linéaire représentant le nombre de médailles remportées par année.
 
 
